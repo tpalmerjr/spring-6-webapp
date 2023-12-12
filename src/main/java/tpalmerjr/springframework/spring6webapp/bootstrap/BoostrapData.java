@@ -4,8 +4,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import tpalmerjr.springframework.spring6webapp.domain.Author;
 import tpalmerjr.springframework.spring6webapp.domain.Book;
+import tpalmerjr.springframework.spring6webapp.domain.Publisher;
 import tpalmerjr.springframework.spring6webapp.repositories.AuthorRepository;
 import tpalmerjr.springframework.spring6webapp.repositories.BookRepository;
+import tpalmerjr.springframework.spring6webapp.repositories.PublisherRepository;
 
 import java.awt.*;
 
@@ -14,10 +16,12 @@ public class BoostrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BoostrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BoostrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -53,5 +57,12 @@ public class BoostrapData implements CommandLineRunner {
         System.out.println("In Bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
         System.out.println("Book Count: " + bookRepository.count());
+
+        Publisher publisher = new Publisher();
+        publisher.setPublisherName("My Publisher");
+        publisher.setAddress("123 Main");
+        publisherRepository.save(publisher);
+
+        System.out.println("Publisher Count: " + publisherRepository.count());
     }
 }
